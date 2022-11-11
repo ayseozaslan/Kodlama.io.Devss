@@ -1,0 +1,44 @@
+package Kodlama.io.Devs.Demo.wepApi.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import Kodlama.io.Devs.Demo.busıness.abstracts.TechnologyService;
+import Kodlama.io.Devs.Demo.busıness.requests.technologies.CreateTechnologyRequest;
+import Kodlama.io.Devs.Demo.busıness.requests.technologies.UpdateTechnologyRequest;
+import Kodlama.io.Devs.Demo.entities.concretes.LanguageTechnology;
+
+@RestController
+@RequestMapping("/api/languageTechnologys")
+public class TechnologyController {
+	private TechnologyService technologyService;
+	@Autowired
+	public TechnologyController(TechnologyService technologyService) {
+		this.technologyService=technologyService;
+	}
+	@GetMapping("/add")
+	public void add(@RequestBody() CreateTechnologyRequest createTechnologyRequest) throws Exception{
+		this.technologyService.add(createTechnologyRequest);
+	}
+	@DeleteMapping("/delete")
+	public void delete(@RequestBody() UpdateTechnologyRequest updateTechnologyRequest ) throws  Exception{
+		this.technologyService.delete(updateTechnologyRequest);
+	}
+	 @GetMapping("getById")
+     public LanguageTechnology getById(int id) {
+    	 
+    	 return technologyService.getById(id);
+  
+     }
+	 @PutMapping("/update/{id}")
+     public void update(@RequestBody() UpdateTechnologyRequest updateLanguageRequest, int id) throws Exception {
+    	 this.technologyService.update(updateLanguageRequest, id);
+     }
+     
+
+}

@@ -1,0 +1,74 @@
+package Kodlama.io.Devs.Demo.busıness.concretes;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import Kodlama.io.Devs.Demo.busıness.abstracts.ProgrammingLanguageService;
+import Kodlama.io.Devs.Demo.busıness.requests.programmingLanguages.CreateLanguageRequest;
+import Kodlama.io.Devs.Demo.busıness.responses.GetAllLanguagesResponse;
+import Kodlama.io.Devs.Demo.dataAccess.abstracts.ProgrammingLanguageRepository;
+import Kodlama.io.Devs.Demo.entities.concretes.ProgrammingLanguage;
+
+@Service
+public class ProgrammingLanguageManager implements ProgrammingLanguageService{
+
+	private ProgrammingLanguageRepository programmingLanguageRepository; 
+	boolean isExist = true;
+	
+	 @Autowired
+		public ProgrammingLanguageManager(ProgrammingLanguageRepository programmingLanguageRepository) {
+			super();
+			this.programmingLanguageRepository = programmingLanguageRepository;
+		}
+	
+	@Override
+	public List<GetAllLanguagesResponse> getAll() {
+		List<ProgrammingLanguage> programmingLanguages= programmingLanguageRepository.findAll();
+		List<GetAllLanguagesResponse> languagesResponse=new ArrayList<GetAllLanguagesResponse>();
+		
+		 for(ProgrammingLanguage programmingLanguage: programmingLanguages) {
+		GetAllLanguagesResponse  responseItem=new GetAllLanguagesResponse();
+		 responseItem.setId(programmingLanguage.getId());
+		 responseItem.setName(programmingLanguage.getLanguage());
+		 
+		 languagesResponse.add(responseItem);
+		
+	}
+	return languagesResponse;
+	
+	}
+	
+	public void add(CreateLanguageRequest createLanguageRequest) throws Exception {
+		ProgrammingLanguage programmingLanguage=new ProgrammingLanguage();
+		programmingLanguage.setLanguage(createLanguageRequest.getName());
+		
+	}
+	
+	@Override
+	public ProgrammingLanguage getById(int id) {
+	
+		return programmingLanguageRepository.findById(id);
+	}
+
+	@Override
+	public void delete(int id) {
+		this.programmingLanguageRepository.deleteById(id);;
+		
+	}
+	
+	public boolean isLanguageExist(String programmingLanguage) throws Exception{
+		List<ProgrammingLanguage> programmingLanguages = programmingLanguageRepository.findAll();
+		for(ProgrammingLanguage language : programmingLanguages) {
+			if(language.getLanguage().equalsIgnoreCase(programmingLanguage)) {
+				isExist=true;
+			}
+		}
+		return isExist;
+	}
+	
+	
+}

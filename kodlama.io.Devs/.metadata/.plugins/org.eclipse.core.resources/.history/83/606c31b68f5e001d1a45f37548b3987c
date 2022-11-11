@@ -1,0 +1,5 @@
+package Kodlama.io.Devs.Demo.entities.concretes;
+
+public class Technology {
+
+}

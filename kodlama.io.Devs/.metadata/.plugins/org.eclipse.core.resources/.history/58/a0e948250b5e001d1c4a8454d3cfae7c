@@ -1,0 +1,15 @@
+package Kodlama.io.Devs.Demo.busıness.abstracts;
+
+import java.util.List;
+
+import Kodlama.io.Devs.Demo.entities.concretes.ProgrammingLanguage;
+
+public interface ProgrammingLanguageService {
+	
+	List<ProgrammingLanguage> getAll();
+	public void add(ProgrammingLanguage languages) throws Exception;
+	public void delete(int id);
+	//public void update(int id,String name);
+	public ProgrammingLanguage getById(int id);
+
+}

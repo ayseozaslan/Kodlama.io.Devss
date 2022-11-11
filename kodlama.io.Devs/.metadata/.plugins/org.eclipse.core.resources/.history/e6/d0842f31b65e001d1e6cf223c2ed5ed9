@@ -1,0 +1,30 @@
+package Kodlama.io.Devs.Demo.busıness.concretes;
+
+import java.util.List;
+
+import Kodlama.io.Devs.Demo.busıness.abstracts.TechnologyService;
+import Kodlama.io.Devs.Demo.busıness.requests.technologies.CreateTechnologyRequest;
+import Kodlama.io.Devs.Demo.busıness.requests.technologies.DeleteTechnologyRequest;
+import Kodlama.io.Devs.Demo.busıness.responses.GetAllLanguagesResponse;
+
+public class TechnologyManager implements TechnologyService{
+
+	@Override
+	public List<GetAllLanguagesResponse> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void add(CreateTechnologyRequest createTechnologyRequest) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(DeleteTechnologyRequest deleteTechnologyRequest) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

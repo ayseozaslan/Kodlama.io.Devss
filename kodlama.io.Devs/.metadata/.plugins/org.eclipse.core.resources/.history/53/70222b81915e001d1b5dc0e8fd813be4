@@ -1,0 +1,103 @@
+package Kodlama.io.Devs.Demo.busıness.concretes;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import Kodlama.io.Devs.Demo.busıness.abstracts.ProgrammingLanguageService;
+
+import Kodlama.io.Devs.Demo.busıness.responses.GetAllLanguagesResponse;
+import Kodlama.io.Devs.Demo.dataAccess.abstracts.ProgrammingLanguageRepository;
+import Kodlama.io.Devs.Demo.entities.concretes.ProgrammingLanguage;
+
+@Service
+public class ProgrammingLanguageManager implements ProgrammingLanguageService{
+
+	
+	private ProgrammingLanguageRepository programmingLanguageRepository; 
+	
+	@Override
+	public List<GetAllLanguagesResponse> getAll() {
+		List<ProgrammingLanguage> programmingLanguages= programmingLanguageRepository.findAll();
+		List<GetAllLanguagesResponse> languagesResponse=new ArrayList()<GetAllLanguagesResponse>();
+		
+		 for(ProgrammingLanguage programmingLanguage: programmingLanguages) {
+		GetAllLanguagesResponse  responseItem=new GetAllLanguagesResponse();
+		 responseItem.setId(programmingLanguage.getId());
+		 responseItem.setName(programmingLanguage.getName());
+		 
+		 languagesResponse.add(responseItem);
+		
+	}
+	return languagesResponse;
+	
+	}
+	
+    @Autowired
+	public ProgrammingLanguageManager(ProgrammingLanguageRepository programmingLanguageRepository) {
+		super();
+		this.programmingLanguageRepository = programmingLanguageRepository;
+	}
+
+
+//	@Override
+//	public void add(CreateLanguageRequest languages) throws Exception {
+//		if(languages==null) {
+//			throw new Exception("The programming language cannot be passed empty.");
+//		}
+//		for(ProgrammingLanguage l1: programmingLanguageRepository.findAll()){
+//			if(l1.getName() == languages.getName()) {
+//				throw new Exception("programming language available");
+//			}
+//			else {
+//				this.programmingLanguageRepository.save(languages);
+//			}
+//			
+//		}
+//		
+//		
+//	}
+
+	@Override
+	public void delete(int id) {
+		programmingLanguageRepository.deleteById(id);;
+		
+	}
+
+//	@Override
+//	public void update(int id, String name) {
+//		programmingLanguageRepository.save(id,name);
+//		
+//	}
+
+	@Override
+	public ProgrammingLanguage getById(int id) {
+	
+		return programmingLanguageRepository.findById(id);
+	}
+
+	
+
+//@Override
+//public void add(CreateLanguageRequest creatLanguageRequest) throws Exception {
+//	ProgrammingLanguage programmingLanguage=new ProgrammingLanguage();
+//	programmingLanguage.setName(creatLanguageRequest.getName());
+//	            
+//	            
+//	            if(CreateLanguageRequest==null) {
+//	    			throw new Exception("The programming language cannot be passed empty.");
+//	    		}
+//	    		for(ProgrammingLanguage l1: programmingLanguageRepository.findAll()){
+//	    			if(l1.getName().equals(programmingLanguage)) {
+//	    				throw new Exception("programming language available");
+//	    			}
+//	    			else {
+//	    				this.programmingLanguageRepository.save(programmingLanguage);
+//	    			}
+//	
+//}
+//}
+}

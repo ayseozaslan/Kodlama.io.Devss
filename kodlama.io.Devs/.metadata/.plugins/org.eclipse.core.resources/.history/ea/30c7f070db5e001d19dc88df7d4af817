@@ -1,0 +1,69 @@
+package Kodlama.io.Devs.Demo.busıness.concretes;
+
+
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import Kodlama.io.Devs.Demo.busıness.abstracts.TechnologyService;
+import Kodlama.io.Devs.Demo.busıness.requests.technologies.CreateTechnologyRequest;
+import Kodlama.io.Devs.Demo.busıness.responses.GetAllLanguagesResponse;
+import Kodlama.io.Devs.Demo.dataAccess.abstracts.TechnologyRepository;
+import Kodlama.io.Devs.Demo.entities.concretes.LanguageTechnology;
+
+
+@Service
+public class TechnologyManager implements TechnologyService{
+      private TechnologyRepository technologyRepository;
+      
+      boolean isExist=false;
+	
+
+	public TechnologyManager(TechnologyRepository technologyRepository) {
+		super();
+		this.technologyRepository = technologyRepository;
+	}
+
+	@Override
+	public List<GetAllLanguagesResponse> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void add(CreateTechnologyRequest createTechnologyRequest) throws Exception {
+		LanguageTechnology technology=new LanguageTechnology();
+		technology.setTechnologyName(createTechnologyRequest.getName());
+		if(technology.getTechnologyName()==null || createTechnologyRequest.getName().isEmpty()) {
+			throw new Exception ("this area cannot be blank");
+		}
+		else if(isTechnologyExist(createTechnologyRequest.getName())==true) {
+		throw new Exception	("this programming language is in list already.");
+		}
+		else {
+			this.technologyRepository.save(technology);
+		}
+		
+	}
+
+	private boolean isTechnologyExist(String LanguageTechnology) {
+		List<LanguageTechnology> languageTechnology=technologyRepository.findAll();
+		
+		for(LanguageTechnology technology:languageTechnology) {
+			if(technology.getProgrammingLanguage().equalsIgnoreCase(languageTechnology)) {
+				isExist=true;
+			}
+			
+		}
+		
+		return isExist;
+	}
+
+	@Override
+	public void delete(int id) {
+		this.technologyRepository.deleteById(id);
+		
+	}
+
+}

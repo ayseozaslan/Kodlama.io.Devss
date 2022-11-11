@@ -1,0 +1,13 @@
+package Kodlama.io.Devs.Demo.busıness.abstracts;
+
+import java.util.List;
+
+import Kodlama.io.Devs.Demo.busıness.requests.technologies.CreateTechnologyRequest;
+import Kodlama.io.Devs.Demo.busıness.requests.technologies.DeleteTechnologyRequest;
+import Kodlama.io.Devs.Demo.busıness.responses.GetAllLanguagesResponse;
+
+public interface TechnologyService {
+       List<GetAllLanguagesResponse> getAll();
+       void add(CreateTechnologyRequest createTechnologyRequest) throws Exception;
+       void delete(DeleteTechnologyRequest deleteTechnologyRequest)
+}

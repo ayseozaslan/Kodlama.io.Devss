@@ -1,0 +1,5 @@
+package Kodlama.io.Devs.Demo.dataAccess.abstracts;
+
+public interface TechnologyRepository {
+
+}

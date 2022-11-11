@@ -1,0 +1,5 @@
+package Kodlama.io.Devs.Demo.busıness.requests.technologies;
+
+public class UpdateTechnologyRequest {
+
+}

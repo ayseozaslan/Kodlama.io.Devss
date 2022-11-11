@@ -1,0 +1,107 @@
+package Kodlama.io.Devs.Demo.busıness.concretes;
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import Kodlama.io.Devs.Demo.busıness.abstracts.TechnologyService;
+import Kodlama.io.Devs.Demo.busıness.requests.technologies.CreateTechnologyRequest;
+import Kodlama.io.Devs.Demo.busıness.requests.technologies.UpdateTechnologyRequest;
+import Kodlama.io.Devs.Demo.busıness.responses.GetAllLanguagesResponse;
+import Kodlama.io.Devs.Demo.dataAccess.abstracts.TechnologyRepository;
+import Kodlama.io.Devs.Demo.entities.concretes.LanguageTechnology;
+import Kodlama.io.Devs.Demo.entities.concretes.ProgrammingLanguage;
+
+
+@Service
+public class TechnologyManager implements TechnologyService{
+      private TechnologyRepository technologyRepository;
+      
+      boolean isExist=false;
+	
+
+	public TechnologyManager(TechnologyRepository technologyRepository) {
+		super();
+		this.technologyRepository = technologyRepository;
+		
+	}
+
+	@Override
+	public List<GetAllLanguagesResponse> getAll() {
+		List<LanguageTechnology> languageTechnologys=technologyRepository.findAll();
+		List<GetAllLanguagesResponse> technologyResponse=new ArrayList<GetAllLanguagesResponse>();
+		
+		for(LanguageTechnology languageTechnology:languageTechnologys) {
+			GetAllLanguagesResponse  responseItem=new GetAllLanguagesResponse();
+			 responseItem.setId(languageTechnology.getTechnologyId());
+			 responseItem.setName(languageTechnology.getTechnologyName());
+			 technologyResponse.add(responseItem);
+	}
+	return technologyResponse;
+	
+	}
+
+	@Override
+	public void add(CreateTechnologyRequest createTechnologyRequest) throws Exception {
+		LanguageTechnology technology=new LanguageTechnology();
+		technology.setTechnologyName(createTechnologyRequest.getName());
+		if(technology.getTechnologyName()==null || createTechnologyRequest.getName().isEmpty()) {
+			throw new Exception ("this area cannot be blank");
+		}
+		else if(isTechnologyExist(createTechnologyRequest.getName())==true) {
+		throw new Exception	("this language technology is in list already.");
+		}
+		else {
+			ProgrammingLanguage programmingLanguage = technologyRepository.findById(createTechnologyRequest.getTechnologyId());
+			LanguageTechnology.setProgramminglanguage(programmingLanguage);
+			technologyRepository.save(LanguageTechnology);
+			this.technologyRepository.save(technology);
+		}
+		
+	}
+
+	private boolean isTechnologyExist(String languageTechnology) {
+		for(GetAllLanguagesResponse technology:getAll()) {
+			if(technology.getName().equals(isTechnologyExist(languageTechnology))) {
+				isExist=true;
+			}
+			
+		}
+		
+		return isExist;
+	}
+		
+	
+		
+		
+
+	public void delete(int id) {
+		this.technologyRepository.deleteById(id);
+		
+	}
+	@Override
+	public LanguageTechnology getById(int id) {
+		return technologyRepository.findById(id);
+	}
+
+	@Override
+	public void update(UpdateTechnologyRequest updateTechnologyRequest,int id) throws Exception {
+		
+			LanguageTechnology languageTechnology=technologyRepository.findById(id);
+			if(languageTechnology.getTechnologyName().equalsIgnoreCase(updateTechnologyRequest.getName())) {
+				throw new Exception("this language technology in list already.");
+			}else {
+				languageTechnology.setTechnologyName(updateTechnologyRequest.getName());
+				this.technologyRepository.save(languageTechnology);
+			}
+			
+		}
+
+	
+	}
+	
+
+

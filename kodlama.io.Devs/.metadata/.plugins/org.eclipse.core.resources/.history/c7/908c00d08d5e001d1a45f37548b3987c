@@ -1,0 +1,17 @@
+package Kodlama.io.Devs.Demo.busıness.abstracts;
+
+import java.util.List;
+
+import Kodlama.io.Devs.Demo.busıness.requests.CreateLanguageRequest;
+import Kodlama.io.Devs.Demo.busıness.responses.GetAllLanguagesResponse;
+import Kodlama.io.Devs.Demo.entities.concretes.ProgrammingLanguage;
+
+public interface ProgrammingLanguageService {
+	
+	List<GetAllLanguagesResponse> getAll();
+	public void add(CreateLanguageRequest creatLanguageRequest) throws Exception;
+	public void delete(int id);
+	//public void update(int id,String name);
+	public ProgrammingLanguage getById(int id);
+
+}
